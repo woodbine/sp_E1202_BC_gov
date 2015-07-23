@@ -58,8 +58,8 @@ def convert_mth_strings ( mth_string ):
         mth_string = mth_string.replace(k, v)
     return mth_string
 # pull down the content from the webpage
-
-html = urllib2.urlopen(url, headers = user_agent)
+req = urllib2.Request(url, headers=user_agent)
+html = urllib2.urlopen(req)
 soup = BeautifulSoup(html)
 # find all entries with the required class
 block = soup.find('ol', attrs = {'class':'sys_itemslist'})
