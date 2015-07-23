@@ -58,7 +58,10 @@ def convert_mth_strings ( mth_string ):
         mth_string = mth_string.replace(k, v)
     return mth_string
 # pull down the content from the webpage
-html = requests.get(url, timeout=90, headers = user_agent)
+try:
+    html = requests.get(url, timeout=90, headers = user_agent)
+except requests.exceptions.Timeout:
+    print 'timeout error'
 soup = BeautifulSoup(html.text)
 print soup
 #html = urllib2.urlopen(url)
