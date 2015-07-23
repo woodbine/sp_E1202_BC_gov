@@ -31,12 +31,12 @@ def validateFilename(filename):
         return True
 def validateURL(url):
     try:
-        r = requests.get(url, allow_redirects=True, timeout=20)
+        r = requests.get(url, allow_redirects=True, timeout=90)
         count = 1
         while r.status_code == 500 and count < 4:
             print ("Attempt {0} - Status code: {1}. Retrying.".format(count, r.status_code))
             count += 1
-            r = requests.get(url, allow_redirects=True, timeout=20)
+            r = requests.get(url, allow_redirects=True, timeout=90)
         sourceFilename = r.headers.get('Content-Disposition')
 
         if sourceFilename:
@@ -58,11 +58,10 @@ def convert_mth_strings ( mth_string ):
         mth_string = mth_string.replace(k, v)
     return mth_string
 # pull down the content from the webpage
-html = requests.get(url, timeout=20, headers = user_agent)
+html = requests.get(url, timeout=90, headers = user_agent)
 soup = BeautifulSoup(html.text)
 #html = urllib2.urlopen(url)
 #soup = BeautifulSoup(html)
-print soup
 # find all entries with the required class
 block = soup.find('ol', attrs = {'class':'sys_itemslist'})
 links = block.findAll('a')
