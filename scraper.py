@@ -61,7 +61,7 @@ def convert_mth_strings ( mth_string ):
 #req = urllib2.Request(url, headers=user_agent)
 #html = urllib2.urlopen(req)
 proxi = {'http': 'http://216.178.226.41:80'}
-html = requests.get(url, headers = header, proxies = proxi)
+html = requests.get(url, headers = user_agent, proxies = proxi)
 soup = BeautifulSoup(html.text)
 # find all entries with the required class
 block = soup.find('ol', attrs = {'class':'sys_itemslist'})
