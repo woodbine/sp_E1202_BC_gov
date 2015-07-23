@@ -60,6 +60,7 @@ def convert_mth_strings ( mth_string ):
 # pull down the content from the webpage
 html = requests.get(url, timeout=90, headers = user_agent)
 soup = BeautifulSoup(html.text)
+print soup
 #html = urllib2.urlopen(url)
 #soup = BeautifulSoup(html)
 # find all entries with the required class
