@@ -64,6 +64,7 @@ proxi = {'http': 'http://216.178.226.41:80'}
 html = requests.get(url, headers = user_agent, proxies = proxi)
 soup = BeautifulSoup(html.text)
 # find all entries with the required class
+print soup
 block = soup.find('ol', attrs = {'class':'sys_itemslist'})
 links = block.findAll('a')
 for link in links:
