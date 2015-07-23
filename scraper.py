@@ -12,7 +12,7 @@ from dateutil.parser import parse
 entity_id = "E1202_BC_gov"
 url = "http://www.bournemouth.gov.uk/CouncilDemocratic/AboutYourCouncil/Transparency/PaymentstoSuppliers.aspx"
 errors = 0
-user_agent = {'User-agent': 'Mozilla/5.0'}
+user_agent = {'User-agent': 'Mozilla/5.0 (X11; Linux i686; rv:30.0) Gecko/20100101 Firefox/30.0'}
 
 # Set up functions
 def validateFilename(filename):
@@ -59,7 +59,7 @@ def convert_mth_strings ( mth_string ):
     return mth_string
 # pull down the content from the webpage
 
-html = urllib2.urlopen(url)
+html = urllib2.urlopen(url, headers = user_agent)
 soup = BeautifulSoup(html)
 # find all entries with the required class
 block = soup.find('ol', attrs = {'class':'sys_itemslist'})
