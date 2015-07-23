@@ -60,7 +60,7 @@ def convert_mth_strings ( mth_string ):
 # pull down the content from the webpage
 #req = urllib2.Request(url, headers=user_agent)
 #html = urllib2.urlopen(req)
-proxi = {'http': 'http://216.178.226.41:80'}
+proxi = {'http': 'http://110.172.167.34:8080'}
 html = requests.get(url, headers = user_agent, proxies = proxi)
 soup = BeautifulSoup(html.text)
 # find all entries with the required class
