@@ -64,7 +64,7 @@ def convert_mth_strings ( mth_string ):
 #html = urllib2.urlopen(req)
 
 html = requests.get(url,  proxies =proxi, headers = user_agent)
-soup = BeautifulSoup(html.text)
+soup = BeautifulSoup(html.text, 'lxml')
 # find all entries with the required class
 
 block = soup.find('ol', attrs = {'class':'sys_itemslist'})
