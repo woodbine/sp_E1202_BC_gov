@@ -7,6 +7,7 @@ import urllib2
 from datetime import datetime
 from bs4 import BeautifulSoup
 from dateutil.parser import parse
+import unirest
 
 # Set up variables
 entity_id = "E1202_BC_gov"
@@ -60,11 +61,12 @@ def convert_mth_strings ( mth_string ):
         mth_string = mth_string.replace(k, v)
     return mth_string
 # pull down the content from the webpage
-req = urllib2.Request(url, headers=user_agent)
-html = urllib2.urlopen(req)
+#req = urllib2.Request(url, headers=user_agent)
+#html = urllib2.urlopen(req)
 
 #html = requests.get(url)
-soup = BeautifulSoup(html.text, 'lxml')
+html=unirest.get('url')
+soup = BeautifulSoup(html.raw_body, 'lxml')
 # find all entries with the required class
 print soup
 block = soup.find('ol', attrs = {'class':'sys_itemslist'})
