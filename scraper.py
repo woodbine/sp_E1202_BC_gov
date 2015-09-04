@@ -68,7 +68,7 @@ html = requests.get(url, proxies = proxy, headers = user_agent)
 #html=unirest.get(url)
 soup = BeautifulSoup(html.text, 'lxml')
 # find all entries with the required class
-print soup
+
 block = soup.find('ol', attrs = {'class':'sys_itemslist'})
 links = block.findAll('a')
 for link in links:
