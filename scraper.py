@@ -7,14 +7,14 @@ import urllib2
 from datetime import datetime
 from bs4 import BeautifulSoup
 from dateutil.parser import parse
-import unirest
+#import unirest
 
 # Set up variables
 entity_id = "E1202_BC_gov"
 url = "http://www.bournemouth.gov.uk/CouncilDemocratic/AboutYourCouncil/Transparency/PaymentstoSuppliers.aspx"
 errors = 0
 user_agent = {'User-agent': 'Mozilla/5.0 (X11; Linux i686; rv:30.0) Gecko/20100101 Firefox/30.0'}
-#proxy = {'http': 'http://54.68.122.241:3128'}
+proxy = {'http': 'http://67.239.73.60:8080'}
 
 
 # Set up functions
@@ -64,9 +64,9 @@ def convert_mth_strings ( mth_string ):
 #req = urllib2.Request(url, headers=user_agent)
 #html = urllib2.urlopen(req)
 
-#html = requests.get(url)
-html=unirest.get(url)
-soup = BeautifulSoup(html.raw_body, 'lxml')
+html = requests.get(url, proxies = proxy, headers = user_agent)
+#html=unirest.get(url)
+soup = BeautifulSoup(html.text, 'lxml')
 # find all entries with the required class
 print soup
 block = soup.find('ol', attrs = {'class':'sys_itemslist'})
