@@ -38,7 +38,7 @@ def validateURL(url):
         while r.status_code == 500 and count < 4:
             print ("Attempt {0} - Status code: {1}. Retrying.".format(count, r.status_code))
             count += 1
-            r = requests.get(url, proxies =proxi, headers = user_agent, allow_redirects=True, timeout=90)
+            r = requests.get(url, headers = user_agent, allow_redirects=True, timeout=90)
         sourceFilename = r.headers.get('Content-Disposition')
 
         if sourceFilename:
