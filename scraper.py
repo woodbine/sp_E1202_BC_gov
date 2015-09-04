@@ -66,7 +66,7 @@ def convert_mth_strings ( mth_string ):
 html = requests.get(url,  headers = user_agent)
 soup = BeautifulSoup(html.text, 'lxml')
 # find all entries with the required class
-
+print soup
 block = soup.find('ol', attrs = {'class':'sys_itemslist'})
 links = block.findAll('a')
 for link in links:
