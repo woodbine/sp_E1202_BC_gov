@@ -65,7 +65,7 @@ def convert_mth_strings ( mth_string ):
 #html = urllib2.urlopen(req)
 
 #html = requests.get(url)
-html=unirest.get('url')
+html=unirest.get(url)
 soup = BeautifulSoup(html.raw_body, 'lxml')
 # find all entries with the required class
 print soup
