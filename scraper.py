@@ -13,7 +13,7 @@ entity_id = "E1202_BC_gov"
 url = "http://www.bournemouth.gov.uk/CouncilDemocratic/AboutYourCouncil/Transparency/PaymentstoSuppliers.aspx"
 errors = 0
 user_agent = {'User-agent': 'Mozilla/5.0 (X11; Linux i686; rv:30.0) Gecko/20100101 Firefox/30.0'}
-proxi = {'http': 'http://54.68.122.241:3128'}
+#proxy = {'http': 'http://54.68.122.241:3128'}
 
 
 # Set up functions
@@ -33,7 +33,7 @@ def validateFilename(filename):
         return True
 def validateURL(url):
     try:
-        r = requests.get(url, proxies =proxi, headers = user_agent, allow_redirects=True, timeout=90)
+        r = requests.get(url, headers = user_agent, allow_redirects=True, timeout=90)
         count = 1
         while r.status_code == 500 and count < 4:
             print ("Attempt {0} - Status code: {1}. Retrying.".format(count, r.status_code))
@@ -63,7 +63,7 @@ def convert_mth_strings ( mth_string ):
 #req = urllib2.Request(url, headers=user_agent)
 #html = urllib2.urlopen(req)
 
-html = requests.get(url,  proxies =proxi, headers = user_agent)
+html = requests.get(url,  headers = user_agent)
 soup = BeautifulSoup(html.text, 'lxml')
 # find all entries with the required class
 
