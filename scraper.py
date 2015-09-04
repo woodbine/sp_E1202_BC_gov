@@ -60,10 +60,10 @@ def convert_mth_strings ( mth_string ):
         mth_string = mth_string.replace(k, v)
     return mth_string
 # pull down the content from the webpage
-#req = urllib2.Request(url, headers=user_agent)
-#html = urllib2.urlopen(req)
+req = urllib2.Request(url, headers=user_agent)
+html = urllib2.urlopen(req)
 
-html = requests.get(url)
+#html = requests.get(url)
 soup = BeautifulSoup(html.text, 'lxml')
 # find all entries with the required class
 print soup
