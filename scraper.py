@@ -50,7 +50,7 @@ def validateURL(url):
         else:
             ext = os.path.splitext(url)[1]
         validURL = r.getcode() == 200
-        validFiletype = ext in ['.csv', '.xls', '.xlsx', '.docx']
+        validFiletype = ext.lower() in ['.csv', '.xls', '.xlsx']
         return validURL, validFiletype
     except:
         print ("Error validating URL.")
@@ -74,7 +74,6 @@ def validate(filename, file_url):
         return False
     return True
 
-
 def convert_mth_strings ( mth_string ):
     month_numbers = {'JAN': '01', 'FEB': '02', 'MAR':'03', 'APR':'04', 'MAY':'05', 'JUN':'06', 'JUL':'07', 'AUG':'08', 'SEP':'09','OCT':'10','NOV':'11','DEC':'12' }
     for k, v in month_numbers.items():
@@ -88,8 +87,6 @@ entity_id = "E1202_BC_gov"
 url = "http://www.bournemouth.gov.uk/CouncilDemocratic/AboutYourCouncil/Transparency/PaymentstoSuppliers.aspx"
 errors = 0
 data = []
-user_agent = {'User-agent': 'Mozilla/5.0 (X11; Linux i686; rv:30.0) Gecko/20100101 Firefox/30.0'}
-proxy = {'http': 'http://67.239.73.60:8080'}
 
 #### READ HTML 1.0
 
