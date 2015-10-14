@@ -87,8 +87,12 @@ entity_id = "E1202_BC_gov"
 url = "http://www.bournemouth.gov.uk/CouncilDemocratic/AboutYourCouncil/Transparency/PaymentstoSuppliers.aspx"
 errors = 0
 data = []
+proxy = urllib2.ProxyHandler({'http': '176.31.106.66:3128'})
+opener = urllib2.build_opener(proxy)
+urllib2.install_opener(opener)
 
 #### READ HTML 1.0
+
 
 html = urllib2.urlopen(url)
 soup = BeautifulSoup(html, "lxml")
