@@ -84,10 +84,10 @@ def convert_mth_strings ( mth_string ):
 #### VARIABLES 1.0
 
 entity_id = "E1202_BC_gov"
-url = "http://www.bournemouth.gov.uk/CouncilDemocratic/AboutYourCouncil/Transparency/PaymentstoSuppliers.aspx"
+url = "http://www.bournemouth.gov.uk/CouncilDemocratic/AboutYourCouncil/Transparency/PaymentstoSuppliers.aspx?GenericListPaymentstoSuppliers_List_GoToPage={}"
 errors = 0
 data = []
-proxy = urllib2.ProxyHandler({'http': '176.31.106.66:3128'})
+proxy = urllib2.ProxyHandler({'http': '92.222.37.47:3128'})
 opener = urllib2.build_opener(proxy)
 urllib2.install_opener(opener)
 
@@ -98,17 +98,30 @@ html = urllib2.urlopen(url)
 soup = BeautifulSoup(html, "lxml")
 
 
-#### SCRAPE DATA
 
-block = soup.find('ol', attrs = {'class':'sys_itemslist'})
-links = block.findAll('a')
-for link in links:
-    url = 'http://www.bournemouth.gov.uk' + link['href']
-    if '.csv' in url:
-        csvMth = link.text[:3]
-        csvYr = link.text[-4:]
-        csvMth = convert_mth_strings(csvMth.upper())
-        data.append([csvYr, csvMth, url])
+
+#### SCRAPE DATA
+import itertools
+
+for pages in itertools.count(1):
+    n=str(pages)
+    html = urllib2.urlopen(url.format(n))
+    soup = BeautifulSoup(html, 'lxml')
+    block = soup.find('ol', attrs = {'class':'sys_itemslist'})
+
+    links = block.findAll('a')
+
+    for link in links:
+        fileurl = 'http://www.bournemouth.gov.uk' + link['href']
+
+        if '.csv' in fileurl:
+            csvMth = link.text[:3]
+            csvYr = link.text[-4:]
+            csvMth = convert_mth_strings(csvMth.upper())
+            data.append([csvYr, csvMth, fileurl])
+    if '57' in soup.find('span', 'sys_paginginfomaxrecord'):
+        break
+
 
 
 #### STORE DATA 1.0
