@@ -87,7 +87,7 @@ entity_id = "E1202_BC_gov"
 url = "http://www.bournemouth.gov.uk/CouncilDemocratic/AboutYourCouncil/Transparency/PaymentstoSuppliers.aspx?GenericListPaymentstoSuppliers_List_GoToPage={}"
 errors = 0
 data = []
-proxy = urllib2.ProxyHandler({'http': '92.222.37.47:3128'})
+proxy = urllib2.ProxyHandler({'http': '195.89.201.48:80'})
 opener = urllib2.build_opener(proxy)
 urllib2.install_opener(opener)
 
@@ -98,8 +98,6 @@ html = urllib2.urlopen(url)
 soup = BeautifulSoup(html, "lxml")
 
 
-
-
 #### SCRAPE DATA
 import itertools
 
@@ -108,18 +106,18 @@ for pages in itertools.count(1):
     html = urllib2.urlopen(url.format(n))
     soup = BeautifulSoup(html, 'lxml')
     block = soup.find('ol', attrs = {'class':'sys_itemslist'})
-
     links = block.findAll('a')
-
     for link in links:
+        print link
         fileurl = 'http://www.bournemouth.gov.uk' + link['href']
-
         if '.csv' in fileurl:
             csvMth = link.text[:3]
             csvYr = link.text[-4:]
             csvMth = convert_mth_strings(csvMth.upper())
             data.append([csvYr, csvMth, fileurl])
-    if '57' in soup.find('span', 'sys_paginginfomaxrecord'):
+    last_page = soup.find('span', 'sys_paginginfomaxrecord').text.strip()
+    current_page = soup.find('span', 'sys_paginginforecordcount').text.strip()
+    if int(last_page) == int(current_page):
         break
 
 
