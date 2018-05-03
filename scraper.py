@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 #### IMPORTS 1.0
 import os
@@ -74,8 +74,10 @@ def validate(filename, file_url):
         return False
     return True
 
-def convert_mth_strings ( mth_string ):
-    month_numbers = {'JAN': '01', 'FEB': '02', 'MAR':'03', 'APR':'04', 'MAY':'05', 'JUN':'06', 'JUL':'07', 'AUG':'08', 'SEP':'09','OCT':'10','NOV':'11','DEC':'12' }
+
+def convert_mth_strings(mth_string):
+    month_numbers = {'JAN': '01', 'FEB': '02', 'MAR': '03', 'APR': '04', 'MAY': '05', 'JUN': '06', 'JUL': '07',
+                     'AUG': '08', 'SEP': '09', 'OCT': '10', 'NOV': '11', 'DEC': '12'}
     for k, v in month_numbers.items():
         mth_string = mth_string.replace(k, v)
     return mth_string
@@ -88,22 +90,20 @@ url = "http://www.bournemouth.gov.uk/CouncilDemocratic/AboutYourCouncil/Transpar
 errors = 0
 data = []
 
-
 #### READ HTML 1.0
 
 
 html = urllib2.urlopen(url)
 soup = BeautifulSoup(html, "lxml")
 
-
 #### SCRAPE DATA
 import itertools
 
 for pages in itertools.count(1):
-    n=str(pages)
+    n = str(pages)
     html = urllib2.urlopen(url.format(n))
     soup = BeautifulSoup(html, 'lxml')
-    block = soup.find('ol', attrs = {'class':'sys_itemslist'})
+    block = soup.find('ol', attrs={'class': 'sys_itemslist'})
     links = block.findAll('a')
     for link in links:
         fileurl = 'http://www.bournemouth.gov.uk' + link['href']
@@ -117,8 +117,6 @@ for pages in itertools.count(1):
     if int(last_page) == int(current_page):
         break
 
-
-
 #### STORE DATA 1.0
 
 for row in data:
@@ -130,7 +128,7 @@ for row in data:
     valid = validate(filename, file_url)
 
     if valid == True:
-        scraperwiki.sqlite.save(unique_keys=['l'], data={"l": file_url, "f": filename, "d": todays_date })
+        scraperwiki.sqlite.save(unique_keys=['l'], data={"l": file_url, "f": filename, "d": todays_date})
         print filename
     else:
         errors += 1
@@ -139,4 +137,4 @@ if errors > 0:
     raise Exception("%d errors occurred during scrape." % errors)
 
 
-#### EOF
+    #### EOF
